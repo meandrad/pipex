@@ -6,7 +6,7 @@
 /*   By: meandrad <meandrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 12:04:15 by meandrad          #+#    #+#             */
-/*   Updated: 2025/01/12 15:16:57 by meandrad         ###   ########.fr       */
+/*   Updated: 2025/01/12 16:10:06 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,12 @@ void	free_path(char **path)
 	free(path);
 }
 
-char	*find_path(char *cmd, char *envp[])
+static char	*check_in_path(char *cmd, char **path)
 {
-	char	**path;
 	char	*part_path;
 	char	*check_path;
 	int		i;
 
-	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
-		i++;
-	path = ft_split(envp[i] + 5, ':');
 	i = 0;
 	while (path[i] != NULL)
 	{
@@ -50,8 +45,29 @@ char	*find_path(char *cmd, char *envp[])
 		free(check_path);
 		i++;
 	}
-	free_path(path);
 	return (NULL);
+}
+
+char	*find_path(char *cmd, char *envp[])
+{
+	char	**path;
+	char	*result;
+	int		i;
+
+	if (cmd[0] == '/')
+	{
+		if (access(cmd, F_OK) == 0)
+			return (cmd);
+		else
+			return (NULL);
+	}
+	i = 0;
+	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+		i++;
+	path = ft_split(envp[i] + 5, ':');
+	result = check_in_path(cmd, path);
+	free_path(path);
+	return (result);
 }
 
 void	cmd_execute(char *argv, char *envp[])
