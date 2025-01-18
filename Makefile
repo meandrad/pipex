@@ -6,14 +6,14 @@
 #    By: meandrad <meandrad@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/12 13:04:07 by meandrad          #+#    #+#              #
-#    Updated: 2025/01/12 14:36:58 by meandrad         ###   ########.fr        #
+#    Updated: 2025/01/18 16:12:35 by meandrad         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = pipex.c utils.c ft_split.c str_utils.c error_util.c
+SRCS = pipex.c utils.c ft_split.c str_utils.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

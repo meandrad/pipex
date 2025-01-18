@@ -6,7 +6,7 @@
 /*   By: meandrad <meandrad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 12:04:15 by meandrad          #+#    #+#             */
-/*   Updated: 2025/01/12 16:10:06 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:46:52 by meandrad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_path(char **path)
 	free(path);
 }
 
-static char	*check_in_path(char *cmd, char **path)
+char	*check_in_path(char *cmd, char **path)
 {
 	char	*part_path;
 	char	*check_path;
@@ -38,10 +38,7 @@ static char	*check_in_path(char *cmd, char **path)
 		check_path = ft_strjoin(part_path, cmd);
 		free(part_path);
 		if (access(check_path, F_OK) == 0)
-		{
-			free_path(path);
 			return (check_path);
-		}
 		free(check_path);
 		i++;
 	}
@@ -84,7 +81,7 @@ void	cmd_execute(char *argv, char *envp[])
 		while (cmd_args[i])
 			free(cmd_args[i++]);
 		free(cmd_args);
-		handle_error(5);
+		handle_error(6);
 	}
 	if (execve(path, cmd_args, envp) == -1)
 	{
